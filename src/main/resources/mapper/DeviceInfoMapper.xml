@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zecola.project.mapper.DeviceInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.zecola.project.model.entity.DeviceInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="device_id" column="device_id" jdbcType="VARCHAR"/>
+            <result property="set_temperature" column="set_temperature" jdbcType="DECIMAL"/>
+            <result property="current_temperature" column="current_temperature" jdbcType="DECIMAL"/>
+            <result property="channel1_time" column="channel1_time" jdbcType="INTEGER"/>
+            <result property="channel2_time" column="channel2_time" jdbcType="INTEGER"/>
+            <result property="channel3_time" column="channel3_time" jdbcType="INTEGER"/>
+            <result property="channel4_time" column="channel4_time" jdbcType="INTEGER"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,device_id,set_temperature,
+        current_temperature,channel1_time,channel2_time,
+        channel3_time,channel4_time,create_time
+    </sql>
+</mapper>
