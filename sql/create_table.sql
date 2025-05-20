@@ -26,42 +26,16 @@ create table if not exists user
     index idx_unionId (unionId)
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
--- 帖子表
-create table if not exists post
-(
-    id         bigint auto_increment comment 'id' primary key,
-    title      varchar(512)                       null comment '标题',
-    content    text                               null comment '内容',
-    tags       varchar(1024)                      null comment '标签列表（json 数组）',
-    thumbNum   int      default 0                 not null comment '点赞数',
-    favourNum  int      default 0                 not null comment '收藏数',
-    userId     bigint                             not null comment '创建用户 id',
-    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    isDelete   tinyint  default 0                 not null comment '是否删除',
-    index idx_userId (userId)
-) comment '帖子' collate = utf8mb4_unicode_ci;
-
--- 帖子点赞表（硬删除）
-create table if not exists post_thumb
-(
-    id         bigint auto_increment comment 'id' primary key,
-    postId     bigint                             not null comment '帖子 id',
-    userId     bigint                             not null comment '创建用户 id',
-    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    index idx_postId (postId),
-    index idx_userId (userId)
-) comment '帖子点赞';
-
--- 帖子收藏表（硬删除）
-create table if not exists post_favour
-(
-    id         bigint auto_increment comment 'id' primary key,
-    postId     bigint                             not null comment '帖子 id',
-    userId     bigint                             not null comment '创建用户 id',
-    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    index idx_postId (postId),
-    index idx_userId (userId)
-) comment '帖子收藏';
+CREATE TABLE `device_info`  (
+                                `id` bigint NOT NULL AUTO_INCREMENT,
+                                `device_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '设备ID',
+                                `set_temperature` decimal(5, 2) NULL DEFAULT NULL COMMENT '设定温度',
+                                `current_temperature` decimal(5, 2) NULL DEFAULT NULL COMMENT '当前温度',
+                                `channel1_time` int NULL DEFAULT NULL COMMENT '通道1时间(秒)',
+                                `channel2_time` int NULL DEFAULT NULL COMMENT '通道2时间(秒)',
+                                `channel3_time` int NULL DEFAULT NULL COMMENT '通道3时间(秒)',
+                                `channel4_time` int NULL DEFAULT NULL COMMENT '通道4时间(秒)',
+                                `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录时间',
+                                PRIMARY KEY (`id`) USING BTREE,
+                                INDEX `idx_device_time`(`device_id` ASC, `create_time` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '设备状态记录表' ROW_FORMAT = Dynamic;

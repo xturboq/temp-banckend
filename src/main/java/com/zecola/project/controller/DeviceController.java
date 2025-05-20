@@ -56,6 +56,8 @@ public class DeviceController {
         if (deviceAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        //  如果收到信息就log输出
+        log.info("收到添加设备信息请求: {}", deviceAddRequest);
         Long deviceId = deviceInfoService.addDevice(deviceAddRequest);
         return ResultUtils.success(deviceId);
     }
